@@ -15,9 +15,20 @@
 				}
 
 				// Se pide la info por medio de la libreria $http y devuelve la promesa
-				return $http.get('data/' + fileName)
+				return $http.get('/api/Kioscos/findCourse/')
 						// Se devuelven los datos cuando llegan
 						.then(function(data){
+							console.log(data.data);
+							return data.data
+						});
+			}
+
+			function getBuildingSchedule(inuBuildingId){
+				// Se pide la info por medio de la libreria $http y devuelve la promesa
+				return $http.get('/api/Kioscos/findCourse/' + inuBuildingId)
+						// Se devuelven los datos cuando llegan
+						.then(function(data){
+							console.log(data.data);
 							return data.data
 						});
 			}
@@ -26,7 +37,8 @@
 			return {
 				// Estos nombres son los ALIAS de las funciones contenidas aquí,
 					// con estos nombres es que se pueden llamar las funciones
-				getCategories: byCategory
+				getCategories: byCategory,
+				getBuildingSchedule: getBuildingSchedule
 			}
 		}])
 

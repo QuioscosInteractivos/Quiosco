@@ -12,3 +12,13 @@
 <div class="breadCrumbs col-sm-12">
 	<div>Programación de auditorios</div>
 </div>
+
+<div ng-class="cellsClass" class="contentBase" ng-repeat='Building in buildings' ng-show="!blScheduleView">
+	<div class="col-sm-3 treeItem" ng-click="FilterSons(Building.ID)">
+		{{Building.DESCRIPTION}}
+	</div>
+</div>
+
+<div ng-show="blScheduleView">
+	{{buildingSchedule}}
+</div>

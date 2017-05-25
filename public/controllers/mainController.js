@@ -15,7 +15,17 @@
 		categoriesRequest.getCategories('buildings').then(function(data){
 			me.buildings = data;
 		});
+
+		me.blScheduleView = false;
+		
+		me.FilterSons = function(inuId){
+			categoriesRequest.getBuildingSchedule(inuId).then(function(iobData){
+				me.buildingSchedule = iobData;
+				me.blScheduleView = true;
+			});
+		}
 	}])
+
 
 	// Controlador de los tabs, se le inyecta directamente objetos de ngRoute, así que los nombres de los parámetros
 		// de entrada no pueden cambiar (la inyección es con el nombre).

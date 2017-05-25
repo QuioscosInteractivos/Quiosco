@@ -322,3 +322,7 @@ p{
 .profile-cont-info{
 	color: #999999;
 }
+
+.treeItem {
+	background-color: gray;
+}
