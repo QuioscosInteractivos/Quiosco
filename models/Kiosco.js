@@ -6,6 +6,9 @@ var Kiosco = {
 	//	OBTIENE TODAS LAS FACULTADES
 	getAllFaculties: function(callback) {
 		var PreLoad = function(err, rows) {
+			console.log('faculties:');
+            console.log(rows);
+
 				if (!err) {
 					var newRows = [];
 					for (var i = 0; i < rows.length; i++) {
@@ -61,7 +64,7 @@ var Kiosco = {
 			}
 			return callback(err, newRows);
 		}
-		return db.query("Select SCHEDULES from auditorios where ID_AUDIENCE=?", [id], PreLoad);
+		return db.query("Select CAST(SCHEDULES AS CHAR(10000) CHARACTER SET utf8) from auditorios where ID_AUDIENCE=?", [id], callback);
 		//return db.query("Select * from auditorios where ID_AUDIENCE=?", [id], callback);
 	},
 	//OBTIENE UNA SALA EN PARTICULAR *** Este va por un auditorio por descripción pero debe ser es ir por una clase

@@ -1,31 +1,10 @@
 (function(){
+	// Module lleva los parámetros cuando está creandose uno nuevo.
 	var app = angular.module('interactiveStand', [
 		// Aquí se define por nombre de módulos
 		'ngRoute',
 		'dataFeed'
 		])
-
-	// La inyección se hace con los nombres de cada cosa o función, en este caso el nombre de la factory en el módulo dataFeed
-	// $scope parece que hace parte de la libreria ngRoute. Se inyecta para crear las cosas en la vista a la que pertenecen en vez de
-		// aquí en el controlador
-	.controller('mainController', ['$scope', 'categoriesRequest', 'userConfig', 'coreConfig', function($scope, categoriesRequest, userConfig, coreConfig){
-		var me = $scope;
-
-		// Se llama al método del servicio, recibe como entrada lo mismo con lo que resolvió la promesa
-		categoriesRequest.getCategories('buildings').then(function(data){
-			me.buildings = data;
-		});
-
-		me.blScheduleView = false;
-		
-		me.FilterSons = function(inuId){
-			categoriesRequest.getBuildingSchedule(inuId).then(function(iobData){
-				me.buildingSchedule = iobData;
-				me.blScheduleView = true;
-			});
-		}
-	}])
-
 
 	// Controlador de los tabs, se le inyecta directamente objetos de ngRoute, así que los nombres de los parámetros
 		// de entrada no pueden cambiar (la inyección es con el nombre).
@@ -71,15 +50,15 @@
 			})
 			.when('/pensum', {
 				templateUrl: 'views/pensum.html',
-				controller: 'mainController'
+				controller: 'pensumController'
 			})
 			.when('/findCourse', {
 				templateUrl: 'views/findCourse.html',
-				controller: 'mainController'
+				controller: 'findCourseController'
 			})
 			.when('/directory', {
 				templateUrl: 'views/directory.html',
-				controller: 'mainController'
+				controller: 'directoryController'
 			})
 			.when('/map', {
 				templateUrl: 'views/map.html',

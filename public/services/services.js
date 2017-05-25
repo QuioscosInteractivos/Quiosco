@@ -8,14 +8,19 @@
 
 			function byCategory(feedCategory){
 				
-				var fileName = '';
+				var sbURL = '';
 				if (feedCategory === 'buildings') {
-					fileName = 'buildings.json';
+					sbURL = 'findCourse/';
 
+				} else if (feedCategory === 'faculties') {
+					sbURL = 'pensum/';
+
+				} else if (feedCategory === 'units') {
+					sbURL = 'directory/';
 				}
 
 				// Se pide la info por medio de la libreria $http y devuelve la promesa
-				return $http.get('/api/Kioscos/findCourse/')
+				return $http.get('/api/Kioscos/' + sbURL)
 						// Se devuelven los datos cuando llegan
 						.then(function(data){
 							console.log(data.data);
@@ -28,6 +33,7 @@
 				return $http.get('/api/Kioscos/findCourse/' + inuBuildingId)
 						// Se devuelven los datos cuando llegan
 						.then(function(data){
+							console.log('???');
 							console.log(data.data);
 							return data.data
 						});
