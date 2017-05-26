@@ -37,8 +37,6 @@ router.get('/findCourse/:id?', function(req, res, next) {
     if (req.params.id) {
         // Todos los auditorios de un edificio
         Kiosco.getAudience(req.params.id, function(err, rows) {
-            console.log('cosa');
-            console.log(rows);
 
             if (err) {
                 res.json(err);
@@ -62,9 +60,6 @@ router.get('/pensum/:id?', function(req, res, next) {
     if (req.params.id) {
         // Todos los auditorios de un edificio
         Kiosco.getAudience(req.params.id, function(err, rows) {
-            console.log('cosa');
-            console.log(rows);
-
             if (err) {
                 res.json(err);
             } else {
@@ -74,8 +69,6 @@ router.get('/pensum/:id?', function(req, res, next) {
 
     } else {
         Kiosco.getAllFaculties(function(err, rows) {
-            console.log('faculties:');
-            console.log(rows);
             if (err) {
                 res.json(err);
             } else {
@@ -89,9 +82,6 @@ router.get('/directory/:id?', function(req, res, next) {
     if (req.params.id) {
         // Todos los auditorios de un edificio
         Kiosco.getUnitsDependences(req.params.id, function(err, rows) {
-            console.log('Dependencias:');
-            console.log(rows);
-
             if (err) {
                 res.json(err);
             } else {
@@ -101,8 +91,6 @@ router.get('/directory/:id?', function(req, res, next) {
 
     } else {
         Kiosco.getUnits(function(err, rows) {
-            console.log('Unidades:');
-            console.log(rows);
             if (err) {
                 res.json(err);
             } else {

@@ -10,12 +10,12 @@
 </div>
 <!-- Breadcrumb y subtitulo -->
 <div class="breadCrumbs col-sm-12">
-	<div>Facultades</div>
+	<div ng-repeat='obCrumb in arBreadCrumb' ng-click="GoTo($index, obCrumb)">{{obCrumb.NAME}}</div>
 </div>
 
-<div ng-class="cellsClass" class="contentBase" ng-repeat='Faculty in faculties' ng-show="!blScheduleView">
-	<div class="col-sm-3 treeItem" ng-click="FilterSons(Faculty.ID)">
-		{{Faculty.NAME}}
+<div ng-class="cellsClass" class="contentBase" ng-repeat='obFaculty in arMenuFaculties track by $index' ng-show="!blScheduleView">
+	<div class="col-sm-3 treeItem" ng-click="ShowSons(obFaculty)">
+		{{obFaculty.NAME}}
 	</div>
 </div>
 

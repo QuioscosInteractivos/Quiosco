@@ -16,6 +16,9 @@
 		me.blDependencyView = false;
 		
 		me.FilterSons = function(inuId){
+			console.log('Viendo hijos');
+			console.log(inuId);
+
 			categoriesRequest.getBuildingSchedule(inuId).then(function(iobData){
 				me.buildingSchedule = iobData;
 				me.blDependencyView = true;

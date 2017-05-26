@@ -77,19 +77,16 @@ var Kiosco = {
 	/*********************************************************************Directorio institucional************************************************************************************************/
 	//OBTIENE TODAS LAS UNIDADES DEL DIRECTORIO DE LA UNIVERSIDAD
 	getUnits: function(callback) {
-
 		return db.query("Select * from unidades", callback);
 	},
 
 	//OBTIENE LAS DEPENDENCIAS DE UNA UNIDAD
 	getUnitsDependences: function(id, callback) {
-		console.log(id);
 		return db.query("Select * from directorio where UNIT_ID=?", [id], callback);
 	},
 
 	//OBTIENE UNA DEPENDENCIA EN PARTICULAR POR MEDIO DEL STRING CON EL NOMBRE DE LA DEPENDENCIA
 	getParticularDependence: function(id, callback) {
-		console.log(id);
 		return db.query("SELECT * FROM directorio WHERE DESCRIPTION LIKE ?%", [id], callback);
 	},
 
