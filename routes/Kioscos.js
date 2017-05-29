@@ -59,7 +59,7 @@ router.get('/findCourse/:id?', function(req, res, next) {
 router.get('/pensum/:id?', function(req, res, next) {
     if (req.params.id) {
         // Todos los auditorios de un edificio
-        Kiosco.getAudience(req.params.id, function(err, rows) {
+        Kiosco.getCareers(req.params.id, function(err, rows) {
             if (err) {
                 res.json(err);
             } else {

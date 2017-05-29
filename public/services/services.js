@@ -48,6 +48,25 @@
 			}
 		}])
 
+		.factory('carrersRequest', ['$http', '$q', function($http, $q){
+
+			function getCarrers(inuID){
+				return $http.get('/api/Kioscos/pensum/' + inuID)
+						// Se devuelven los datos cuando llegan
+						.then(function(data){
+							console.log('Carreras:');
+							console.log(data.data);
+							return data.data
+						});
+			}
+
+			return {
+				// Estos nombres son los ALIAS de las funciones contenidas aquí,
+					// con estos nombres es que se pueden llamar las funciones
+				getCarrers: getCarrers
+			}
+		}])
+
 		.factory('coreConfig', ['$http', '$q', function($http, $q){
 
 			function getCategories(){

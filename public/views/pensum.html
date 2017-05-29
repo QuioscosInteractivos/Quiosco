@@ -13,12 +13,27 @@
 	<div ng-repeat='obCrumb in arBreadCrumb' ng-click="GoTo($index, obCrumb)">{{obCrumb.NAME}}</div>
 </div>
 
-<div ng-class="cellsClass" class="contentBase" ng-repeat='obFaculty in arMenuFaculties track by $index' ng-show="!blScheduleView">
+<div ng-class="cellsClass" class="contentBase" ng-repeat='obFaculty in arMenuFaculties track by $index'>
 	<div class="col-sm-3 treeItem" ng-click="ShowSons(obFaculty)">
 		{{obFaculty.NAME}}
 	</div>
 </div>
 
-<div ng-show="blScheduleView">
-	{{blPensumView}}
+<div ng-repeat='obCarrer in arPensum'>
+	<!-- {{obCarrer}} -->
+	<div class="contentBase" ng-repeat='obSemester in obCarrer.SEMESTERS track by $index'>
+		<div class="col-sm-3 treeItem">
+			<div>
+				{{obSemester.SEMESTER_NAME}}
+			</div>
+			<div ng-repeat="obCourse in obSemester.SUBJECTS">
+				<div>{{obCourse.ID_GROUPER}}</div>
+				<div>{{obCourse.NAME}}</div>
+				<div>
+					<div>{{obCourse.CREDITS}}</div>
+					<div>créditos</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
