@@ -6,9 +6,6 @@ var Kiosco = {
 	//	OBTIENE TODAS LAS FACULTADES
 	getAllFaculties: function(callback) {
 		var PreLoad = function(err, rows) {
-			console.log('faculties:');
-            console.log(rows);
-
 				if (!err) {
 					var newRows = [];
 					for (var i = 0; i < rows.length; i++) {
@@ -23,9 +20,7 @@ var Kiosco = {
 
 	//OBTIENE TODAS LAS CARRERAS QUE PERTENECEN A UNA FACULTAD, PREGRADO, POSTGRADO EN PARTICULAR
 	getCareers: function(id, callback) {
-
 		var PreLoad = function(err, rows) {
-			console.log(rows);
 			if (!err) {
 				var newRows = [];
 				for (var i = 0; i < rows.length; i++) {
@@ -40,7 +35,6 @@ var Kiosco = {
 
 	//OBTIENE UNA CARRERA EN PARTICULAR INGRESANDO EL STRING DEL NOMBRE DELA CARRERA
 	getParticularCareer: function(id, callback) {
-		console.log(id);
 		return db.query("SELECT * FROM carreras WHERE NAME LIKE ?%", [id], callback);
 	},
 	/****************************************************************end Planes de estudio*****************************************************************************************************/
@@ -54,7 +48,6 @@ var Kiosco = {
 	//OBTIENE LOS AUTITORIOS DE UN EDIFICIO EN PARTICULAR
 	getAudience: function(id, callback) {
 		var PreLoad = function(err, rows) {
-			console.log(rows);
 			if (!err) {
 				var newRows = [];
 				for (var i = 0; i < rows.length; i++) {
@@ -69,7 +62,6 @@ var Kiosco = {
 	},
 	//OBTIENE UNA SALA EN PARTICULAR *** Este va por un auditorio por descripción pero debe ser es ir por una clase
 	getParticularAudience: function(id, callback) {
-		console.log(id);
 		return db.query("SELECT * FROM auditorios WHERE DESCRIPTION LIKE ?", [id], callback);
 	},
 	/*********************************************************************end Horarios de clase************************************************************************************************/
@@ -82,6 +74,7 @@ var Kiosco = {
 
 	//OBTIENE LAS DEPENDENCIAS DE UNA UNIDAD
 	getUnitsDependences: function(id, callback) {
+		console.log(id);
 		return db.query("Select * from directorio where UNIT_ID=?", [id], callback);
 	},
 

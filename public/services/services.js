@@ -6,7 +6,7 @@
 		// $q es una libreria para trabajar con promisess
 		.factory('categoriesRequest', ['$http', '$q', function($http, $q){
 
-			function byCategory(feedCategory){
+			function getCategories(feedCategory){
 				
 				var sbURL = '';
 				if (feedCategory === 'buildings') {
@@ -22,9 +22,8 @@
 				// Se pide la info por medio de la libreria $http y devuelve la promesa
 				return $http.get('/api/Kioscos/' + sbURL)
 						// Se devuelven los datos cuando llegan
-						.then(function(data){
-							console.log(data.data);
-							return data.data
+						.then(function(iobData){
+							return iobData.data
 						});
 			}
 
@@ -32,10 +31,18 @@
 				// Se pide la info por medio de la libreria $http y devuelve la promesa
 				return $http.get('/api/Kioscos/findCourse/' + inuBuildingId)
 						// Se devuelven los datos cuando llegan
-						.then(function(data){
-							console.log('???');
-							console.log(data.data);
-							return data.data
+						.then(function(iobData){
+							return iobData.data
+						});
+			}
+
+			function getDependencies(inuDependencyId){
+				console.log(inuDependencyId);
+				// Se pide la info por medio de la libreria $http y devuelve la promesa
+				return $http.get('/api/Kioscos/directory/' + inuDependencyId)
+						// Se devuelven los datos cuando llegan
+						.then(function(iobData){
+							return iobData.data
 						});
 			}
 
@@ -43,8 +50,9 @@
 			return {
 				// Estos nombres son los ALIAS de las funciones contenidas aquí,
 					// con estos nombres es que se pueden llamar las funciones
-				getCategories: byCategory,
-				getBuildingSchedule: getBuildingSchedule
+				getCategories: getCategories,
+				getBuildingSchedule: getBuildingSchedule,
+				getDependencies: getDependencies
 			}
 		}])
 
@@ -53,10 +61,8 @@
 			function getCarrers(inuID){
 				return $http.get('/api/Kioscos/pensum/' + inuID)
 						// Se devuelven los datos cuando llegan
-						.then(function(data){
-							console.log('Carreras:');
-							console.log(data.data);
-							return data.data
+						.then(function(iobData){
+							return iobData.data
 						});
 			}
 
@@ -72,8 +78,8 @@
 			function getCategories(){
 
 				return $http.get('data/' + 'categories.json')
-						.then(function(data){
-							return data.data;
+						.then(function(iobData){
+							return iobData.data;
 						});
 			}
 
@@ -94,9 +100,9 @@
 
 				// Se pide la info por medio de la libreria $http y se devuelve la promesa
 				return $http.get('data/' + fileName)
-						.then(function(data){
+						.then(function(iobData){
 							// Devolviendo la info que llega
-							return data.data;
+							return iobData.data;
 						});
 
 				// La función getCells devuelve la promesa cuando es resuelta

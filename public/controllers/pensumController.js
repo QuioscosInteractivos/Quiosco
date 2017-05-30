@@ -5,7 +5,7 @@
 	// La inyección se hace con los nombres de cada cosa o función, en este caso el nombre de la factory en el módulo dataFeed
 	// $scope parece que hace parte de la libreria ngRoute. Se inyecta para crear las cosas en la vista a la que pertenecen en vez de
 		// aquí en el controlador
-	.controller('pensumController', ['$scope', 'categoriesRequest', 'carrersRequest', 'userConfig', 'coreConfig', function($scope, categoriesRequest, carrersRequest, userConfig, coreConfig){
+	.controller('pensumController', ['$scope', 'Utilities', 'categoriesRequest', 'carrersRequest', 'userConfig', 'coreConfig', function($scope, Utilities, categoriesRequest, carrersRequest, userConfig, coreConfig){
 		var me = $scope;
 
 		// Inicializando
@@ -17,20 +17,21 @@
 		me.arAllfaculties = [];
 		// Pensum de una carrera seleccionada
 		me.arPensum = [];
+		// Colores de las clases
+		me.arCourseTypeClasses = ['blue', 'yellow', 'green', 'red'];
+		me.obCourseClasses = {};
 
 		// Primer crumb
-		obBaseBreadCrumb = {
+		me.arBreadCrumb.push({
 			ID: null,
 			NAME: 'Facultades',
 			SONS: me.arAllfaculties
-		};
-
-		me.arBreadCrumb.push(obBaseBreadCrumb);
+		});
 
 		// Se llama al método del servicio, recibe como entrada lo mismo con lo que resolvió la promesa
 		categoriesRequest.getCategories('faculties').then(function(iarData){
-			me.ReplaceArrayItems(me.arAllfaculties, iarData);
-			me.ReplaceArrayItems(me.arMenuFaculties, iarData);
+			Utilities.ReplaceArrayItems(me.arAllfaculties, iarData);
+			Utilities.ReplaceArrayItems(me.arMenuFaculties, iarData);
 		});
 		
 		me.ShowSons = function(iobfaculty){
@@ -40,15 +41,15 @@
 			if(iobfaculty.SEMESTERS){
 				me.arBreadCrumb.push(iobfaculty);
 				// Cuando se llega al pensum de una carrera
-				me.ReplaceArrayItems(me.arPensum, [iobfaculty]);
+				Utilities.ReplaceArrayItems(me.arPensum, [iobfaculty]);
 				// Se limpian las opciones del menú
-				me.ReplaceArrayItems(me.arMenuFaculties);
+				Utilities.ReplaceArrayItems(me.arMenuFaculties);
 
 			} else {
 				// Guardando el registro anterior en la miga de pan.
 				me.arBreadCrumb.push(iobfaculty);
 				// Limpiando la vista de pensum
-				me.ReplaceArrayItems(me.arPensum);
+				Utilities.ReplaceArrayItems(me.arPensum);
 
 				if (!iobfaculty.SONS || (iobfaculty.SONS.length === 0)) {
 					// Cuando no hay mas hijos en el menú
@@ -62,33 +63,14 @@
 					carrersRequest.getCarrers(nuId).then(function(iobData){
 						nuLastCrumb = (me.arBreadCrumb.length - 1);
 						me.arBreadCrumb[nuLastCrumb].SONS = iobData;
-						// Agregando la data al arreglo con todo
-						//me.AddArrayItems(me.arAllfaculties, iobData);
 						// Cambiando las opciones a desplegar
-						me.ReplaceArrayItems(me.arMenuFaculties, iobData);
+						Utilities.ReplaceArrayItems(me.arMenuFaculties, iobData);
 					});
 
 				} else {
 					// Cambia las opciones a desplegar
-					me.ReplaceArrayItems(me.arMenuFaculties, iobfaculty.SONS);
+					Utilities.ReplaceArrayItems(me.arMenuFaculties, iobfaculty.SONS);
 				}
-			}
-		},
-
-		// Reemplaza los datos de un arreglo con los de otro.
-		me.ReplaceArrayItems = function(iarMenuArray, iarNewData){
-			// Limpiando el arreglo
-			iarMenuArray.length = 0;
-
-			// Cambiando las opciones
-			me.AddArrayItems(iarMenuArray, iarNewData);
-		},
-
-		// Agrega datos de un arreglo a otro.
-		me.AddArrayItems = function(iarArray, iarData){
-			// Agrega data solo si es enviada
-			if (iarData) {
-				iarArray.push.apply(iarArray, iarData);
 			}
 		},
 
@@ -98,16 +80,36 @@
 		me.GoTo = function(inuIndex, iobCrumb){
 			var me = this,
 				obCrumb = null;
-			// Cambiando las opciones del menú
-			//me.ReplaceArrayItems(me.arMenuFaculties, iobCrumb.SONS);
+
 			// Borrando los crumbs que estan después del seleccionado
 			me.arBreadCrumb.splice(inuIndex+1);
 			obCrumb = me.arBreadCrumb.pop();
 
+			// Pide continuar con la lógica usual al seleccionar algo del menú
 			me.ShowSons(obCrumb);
+		},
 
-			/*console.log('BreadCrumb:');
-			console.log(me.arBreadCrumb);*/
+		// Devuelve la clase correspondiente a un tipo de curso.
+		me.getCourseTypeColor = function(inuID){
+			var me = this;
+
+			if(!me.obCourseClasses[inuID]) {
+				me.obCourseClasses[inuID] = me.arCourseTypeClasses.shift();
+			}
+
+			return me.obCourseClasses[inuID];
+		},
+
+		// Devuelve la suma de todos los créditos en un semestre.
+		me.getTotalCredits = function(iobSemester) {
+			var me = this,
+				nuTotal = 0;
+
+			for (var i = iobSemester.SUBJECTS.length - 1; i >= 0; i--) {
+				nuTotal += iobSemester.SUBJECTS[i].CREDITS;
+			}
+
+			return nuTotal;
 		}
 	}])
 })();

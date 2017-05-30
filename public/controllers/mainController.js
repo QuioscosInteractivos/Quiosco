@@ -3,7 +3,8 @@
 	var app = angular.module('interactiveStand', [
 		// Aquí se define por nombre de módulos
 		'ngRoute',
-		'dataFeed'
+		'dataFeed',
+		'UtilitiesModule'
 		])
 
 	// Controlador de los tabs, se le inyecta directamente objetos de ngRoute, así que los nombres de los parámetros
@@ -45,8 +46,7 @@
 	.config(['$routeProvider', function($routeProvider){
 		$routeProvider
 			.when('/', {
-				templateUrl: 'views/news.html',
-				controller: 'mainController'
+				templateUrl: 'views/news.html'
 			})
 			.when('/pensum', {
 				templateUrl: 'views/pensum.html',
@@ -61,8 +61,7 @@
 				controller: 'directoryController'
 			})
 			.when('/map', {
-				templateUrl: 'views/map.html',
-				controller: 'mainController'
+				templateUrl: 'views/map.html'
 			})
 			.otherwise({
 				redirectTo: '/'

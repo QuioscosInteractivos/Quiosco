@@ -10,15 +10,25 @@
 </div>
 <!-- Breadcrumb y subtitulo -->
 <div class="breadCrumbs col-sm-12">
-	<div>Unidades</div>
+	<div ng-repeat='obCrumb in arBreadCrumb' ng-click="GoTo($index, obCrumb)">{{obCrumb.DESCRIPTION}}</div>
 </div>
 
-<div ng-class="cellsClass" class="contentBase" ng-repeat='Unit in units' ng-show="!blDependencyView">
-	<div class="col-sm-3 treeItem" ng-click="FilterSons(Unit)">
-		{{Unit.DESCRIPTION}}
+<div ng-class="cellsClass" class="contentBase" ng-repeat='obUnit in arUnits'>
+	<div class="col-sm-3 treeItem" ng-click="ShowSons(obUnit)">
+		{{obUnit.DESCRIPTION}}
 	</div>
 </div>
 
-<div ng-show="blDependencyView">
-	{{buildingSchedule}}
-</div>
+<table border="1" width="100%" ng-show="arDependencies.length > 0">
+	<tr>
+		<th ng-click="OrderBy('DESCRIPTION')" class="col-sm-3">Dependencia</th>
+		<th ng-click="OrderBy('PHONE')" class="col-sm-3">Teléfono</th>
+		<th ng-click="OrderBy('EMAIL')" class="col-sm-3">Correo electrónico</th>
+	</tr>
+	<!-- <tr ng-repeat="x in names | orderBy:myOrderBy"> -->
+	<tr ng-repeat="obDependency in arDependencies | orderBy:sbOrderProperty:blReverseOrder">
+		<td class="col-sm-3">{{obDependency.DESCRIPTION}}</td>
+		<td class="col-sm-3">{{obDependency.PHONE}}</td>
+		<td class="col-sm-3">{{obDependency.EMAIL}}</td>
+	</tr>
+</table>

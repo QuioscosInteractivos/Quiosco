@@ -13,21 +13,38 @@
 	<div ng-repeat='obCrumb in arBreadCrumb' ng-click="GoTo($index, obCrumb)">{{obCrumb.NAME}}</div>
 </div>
 
-<div ng-class="cellsClass" class="contentBase" ng-repeat='obFaculty in arMenuFaculties track by $index'>
+<!-- Menú -->
+<div ng-class="cellsClass" class="contentBase" ng-repeat='obFaculty in arMenuFaculties'>
 	<div class="col-sm-3 treeItem" ng-click="ShowSons(obFaculty)">
 		{{obFaculty.NAME}}
 	</div>
 </div>
 
+<!-- plan de estudio seleccionado -->
 <div ng-repeat='obCarrer in arPensum'>
-	<!-- {{obCarrer}} -->
-	<div class="contentBase" ng-repeat='obSemester in obCarrer.SEMESTERS track by $index'>
+	<!-- Tipos de materias -->
+	<div class="contentBase" ng-repeat='obCourseType in obCarrer.GROUPERS'>
+		<div>
+			<div ng-class="getCourseTypeColor(obCourseType.ID)" class="courseTypeLegendSize"></div>
+			<div>{{obCourseType.DESCRIPTION}}</div>
+		</div>
+	</div>
+
+	<!-- Semestres -->
+	<div class="contentBase" ng-repeat='obSemester in obCarrer.SEMESTERS'>
 		<div class="col-sm-3 treeItem">
 			<div>
-				{{obSemester.SEMESTER_NAME}}
+				<div>
+					{{obSemester.SEMESTER_NAME}}
+				</div>
+				<div>
+					Créditos: {{getTotalCredits(obSemester)}}
+				</div>
 			</div>
+
+			<!-- Marerias -->
 			<div ng-repeat="obCourse in obSemester.SUBJECTS">
-				<div>{{obCourse.ID_GROUPER}}</div>
+				<div ng-class="getCourseTypeColor(obCourse.ID_GROUPER)" class="courseTypeSize"></div>
 				<div>{{obCourse.NAME}}</div>
 				<div>
 					<div>{{obCourse.CREDITS}}</div>
