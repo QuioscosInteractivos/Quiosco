@@ -1,0 +1,17 @@
+/* You can add global styles to this file, and also import other style files */
+app-root{
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+app-sidebar{
+    flex-basis: 30%;
+}
+app-view-content{
+    flex-basis: 70%;
+}
+
+app-sidebar li{
+    width: 100%;
+    padding-left: 2rem;
+}

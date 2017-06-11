@@ -1,0 +1,35 @@
+<!--<div class="input-group" *ngFor="let activity of arAuditoriums">
+      <span>{{activity.DESCRIPTION}}</span>
+</div>-->
+
+<div class="viewTopbar container-fluid">
+		<div class="main row">{{sbTitle}}</div>
+</div>
+<!-- Buscador y botón -->
+
+<div class="searcherBar col-sm-12">
+	<input class="caja" type="text" placeholder="Buscar" [(ngModel)]="sbSearchString">
+	<button type="button" class="smallBtn btn btn-default btn-sm" aria-label="Left Align" (click)="SearchCourse()">
+	  <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+	</button>
+	<div>Consulte una materia por su nombre o docente.</div>
+</div>
+<!-- Breadcrumb y subtitulo -->
+<div class="breadCrumbs col-sm-12">
+	<div *ngFor='let obCrumb of arBreadCrumb, let nuIndex=index' (click)="GoTo(nuIndex, obCrumb)">{{obCrumb.DESCRIPTION}} >></div>
+</div>
+
+<div *ngFor='let obOption of arMenuOptions.SONS'>
+	<div class="col-sm-3 treeItem" (click)="ShowSons(obOption)">
+		{{obOption.DESCRIPTION}}
+	</div>
+</div>
+<div *ngFor='let obOption of arMenuOptions.SCHEDULE'>
+	<div class="col-sm-3">
+		<div>{{obOption.DESCRIPTION}}</div>
+            <div>Horario . . . </div>
+	</div>
+</div>
+<!--<div ng-show="blScheduleView">
+	{{buildingSchedule}}
+</div> -->
